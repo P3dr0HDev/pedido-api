@@ -15,6 +15,9 @@ public class Usuario {
     @Column(nullable = false)
     private String email;
 
+    @Column
+    private String senha;
+
     public Long getId() {
         return id;
     }
@@ -37,5 +40,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

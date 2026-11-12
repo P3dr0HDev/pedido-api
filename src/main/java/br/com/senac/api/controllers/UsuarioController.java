@@ -17,12 +17,23 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<?>> listarTodos() {
-        return ResponseEntity.ok(usuarioService.listar());
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioRequestDto usuario) {
+        try {
+            return ResponseEntity.ok(usuarioService.login(usuario));
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity
+                    .badRequest()
+                    .body(ResponseUtil.parserMensagem(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body(ResponseUtil.parserMensagem(e.getMessage()));
+        }
     }
 
-    @PostMapping("/criar")
+    @PostMapping("/cadastro")
     public ResponseEntity<?> criar(@RequestBody UsuarioRequestDto usuario) {
         try {
             return ResponseEntity

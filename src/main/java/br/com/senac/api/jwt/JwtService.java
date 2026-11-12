@@ -1,7 +1,7 @@
 package br.com.senac.api.jwt;
 
 
-import br.com.senac.api.entidades.Pedidos;
+import br.com.senac.api.entidades.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -14,16 +14,16 @@ import java.time.ZoneOffset;
 
 @Service
 public class JwtService {
-    private String segredo = "cvHWa40A18vP7TvwCr7EvdWW60yidXPgpXVWslDK04X";
+    private String segredo = "teste";
 
-    public String gerarToken(Pedidos pedido) {
+    public String gerarToken(Usuario usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(segredo);
 
             String token = JWT.create()
-                    .withIssuer("pedidos-api")
-                    .withSubject(pedido.getNomeCliente())
-                    .withExpiresAt(this.geraDataExpericao())
+                    .withIssuer("pedido-api")
+                    .withSubject(usuario.getEmail())
+                    .withExpiresAt(this.geraDataExpiracao())
                     .sign(algorithm);
 
             return token;
@@ -37,7 +37,7 @@ public class JwtService {
             Algorithm algorithm = Algorithm.HMAC256(segredo);
 
             return JWT.require(algorithm)
-                    .withIssuer("pedidos-api")
+                    .withIssuer("pedido-api")
                     .build()
                     .verify(token)
                     .getSubject();
@@ -46,7 +46,7 @@ public class JwtService {
         }
     }
 
-    private Instant geraDataExpericao(){
+    private Instant geraDataExpiracao(){
         return LocalDateTime
                 .now() // pega a data e hora atual
                 .plusHours(1) // soma uma hora a data atual
