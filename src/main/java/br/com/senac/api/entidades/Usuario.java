@@ -1,5 +1,6 @@
 package br.com.senac.api.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Usuario {
     private String email;
 
     @Column
+    @JsonIgnore
     private String senha;
 
     public Long getId() {

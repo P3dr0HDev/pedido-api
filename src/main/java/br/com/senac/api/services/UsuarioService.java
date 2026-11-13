@@ -3,6 +3,7 @@ package br.com.senac.api.services;
 import br.com.senac.api.dtos.TokenResponseDto;
 import br.com.senac.api.dtos.UsuarioRequestDto;
 import br.com.senac.api.entidades.Usuario;
+import br.com.senac.api.jwt.JwtService;
 import br.com.senac.api.respositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -78,6 +82,7 @@ public class UsuarioService {
         Usuario saida = new Usuario();
         saida.setNome(entrada.getNome());
         saida.setEmail(entrada.getEmail());
+        saida.setSenha(passwordEncoder.encode(entrada.getSenha()));
         return saida;
     }
 }

@@ -3,6 +3,7 @@ package br.com.senac.api.dtos;
 public class UsuarioRequestDto {
 	private String nome;
 	private String email;
+	private String senha;
 
 	public String getNome() {
 		return nome;
@@ -19,4 +20,12 @@ public class UsuarioRequestDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }
